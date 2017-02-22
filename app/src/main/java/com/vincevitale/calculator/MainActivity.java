@@ -60,20 +60,20 @@ public class MainActivity extends AppCompatActivity {
         buttonDecimal.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-            if(textView.getText().toString().equals("_")){
-                textView.setText("");
-            }
+                if(textView.getText().toString().equals("_")){
+                    textView.setText("");
+                }
 
-            if (textViewSum.getText().toString().equals("")) {
-                textView.append(".");
-                buttonDecimal.setEnabled(false);
-                disableAll();
-            }else{
-                clearCalc();
-                textView.setText(".");
-                buttonDecimal.setEnabled(false);
-                disableAll();
-            }
+                if (textViewSum.getText().toString().equals("")) {
+                    textView.append(".");
+                    buttonDecimal.setEnabled(false);
+                    disableAll();
+                }else{
+                    clearCalc();
+                    textView.setText(".");
+                    buttonDecimal.setEnabled(false);
+                    disableAll();
+                }
             }
         });
 
@@ -81,42 +81,42 @@ public class MainActivity extends AppCompatActivity {
         buttonDelete.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-            String tempString = textView.getText().toString();
-            if(!tempString.equals("_")){
-                // Checks if textView is Empty
-                if (tempString.length() > 0) {
-                    // Enables Decimal Button if the Deleted Character was a Decimal
-                    if (tempString.substring((tempString.length() - 1), tempString.length()).equals(".")) {
-                        buttonDecimal.setEnabled(true);
-                    }
-                    textView.setText(tempString.substring(0, tempString.length() - 1));
-                    // Disables Operator Buttons if textView is Empty
-                    if (textView.getText().toString().length() <= 0) {
-                        disableAll();
-                    } else {
-                        // Disables Operator Buttons if Last Character of textView is a Decimal
-                        tempString = textView.getText().toString();
-                        tempString = tempString.substring((tempString.length() - 1), tempString.length());
-                        if (tempString.equals(".")) {
+                String tempString = textView.getText().toString();
+                if(!tempString.equals("_")){
+                    // Checks if textView is Empty
+                    if (tempString.length() > 0) {
+                        // Enables Decimal Button if the Deleted Character was a Decimal
+                        if (tempString.substring((tempString.length() - 1), tempString.length()).equals(".")) {
+                            buttonDecimal.setEnabled(true);
+                        }
+                        textView.setText(tempString.substring(0, tempString.length() - 1));
+                        // Disables Operator Buttons if textView is Empty
+                        if (textView.getText().toString().length() <= 0) {
                             disableAll();
-                            buttonDecimal.setEnabled(false);
-                        } else if (textViewOperator.getText().toString().equals("")) {
-                            enableOperators();
                         } else {
-                            buttonEquals.setEnabled(true);
+                            // Disables Operator Buttons if Last Character of textView is a Decimal
+                            tempString = textView.getText().toString();
+                            tempString = tempString.substring((tempString.length() - 1), tempString.length());
+                            if (tempString.equals(".")) {
+                                disableAll();
+                                buttonDecimal.setEnabled(false);
+                            } else if (textViewOperator.getText().toString().equals("")) {
+                                enableOperators();
+                            } else {
+                                buttonEquals.setEnabled(true);
+                            }
                         }
                     }
                 }
-            }
-            // Checks if textView is Empty After Delete
-            if(
-                (textView.getText().toString().length() == 0) &&
-                (textViewOperator.getText().toString().equals("")) &&
-                (textViewNumberOne.getText().toString().equals(""))
-                ){
+                // Checks if textView is Empty After Delete
+                if(
+                    (textView.getText().toString().length() == 0) &&
+                    (textViewOperator.getText().toString().equals("")) &&
+                    (textViewNumberOne.getText().toString().equals(""))
+                    ){
 
-                textView.setText("_");
-            }
+                    textView.setText("_");
+                }
             }
         });
 
@@ -132,41 +132,41 @@ public class MainActivity extends AppCompatActivity {
         buttonEquals.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-            double textViewDouble = Double.parseDouble(textView.getText().toString());
-            textViewNumberTwo.setText(String.format(Locale.US, "%1$.2f", textViewDouble));
-            String operatorPicked = textViewOperator.getText().toString();
-            double firstNumber = Double.parseDouble(textViewNumberOne.getText().toString());
-            double secondNumber = Double.parseDouble(textViewNumberTwo.getText().toString());
-            double sumNumber;
+                double textViewDouble = Double.parseDouble(textView.getText().toString());
+                textViewNumberTwo.setText(String.format(Locale.US, "%1$.2f", textViewDouble));
+                String operatorPicked = textViewOperator.getText().toString();
+                double firstNumber = Double.parseDouble(textViewNumberOne.getText().toString());
+                double secondNumber = Double.parseDouble(textViewNumberTwo.getText().toString());
+                double sumNumber;
 
-            if(operatorPicked.equals("+")){
-                sumNumber = firstNumber + secondNumber;
-            }else if(operatorPicked.equals("-")){
-                sumNumber = firstNumber - secondNumber;
-            }else if(operatorPicked.equals("*")){
-                sumNumber = firstNumber * secondNumber;
-            }else if(operatorPicked.equals("/")){
-                // Prevents Dividing by Zero
-                if(secondNumber == 0){
-                    sumNumber = 0;
+                if(operatorPicked.equals("+")){
+                    sumNumber = firstNumber + secondNumber;
+                }else if(operatorPicked.equals("-")){
+                    sumNumber = firstNumber - secondNumber;
+                }else if(operatorPicked.equals("*")){
+                    sumNumber = firstNumber * secondNumber;
+                }else if(operatorPicked.equals("/")){
+                    // Prevents Dividing by Zero
+                    if(secondNumber == 0){
+                        sumNumber = 0;
+                    }else {
+                        sumNumber = firstNumber / secondNumber;
+                    }
                 }else {
-                    sumNumber = firstNumber / secondNumber;
+                    sumNumber = 0;
                 }
-            }else {
-                sumNumber = 0;
-            }
 
-            // Check for Dividing by Zero
-            if(operatorPicked.equals("/") && secondNumber == 0){
-                textView.setText(R.string.error);
-                clearOnly();
-            }else {
-                textViewSum.setText(String.format(Locale.US, "%1$.2f", sumNumber));
-                textView.setText(String.format(Locale.US, "%1$.2f", sumNumber));
-                enableOperators();
-                buttonDelete.setEnabled(false);
-                buttonDecimal.setEnabled(true);
-            }
+                // Check for Dividing by Zero
+                if(operatorPicked.equals("/") && secondNumber == 0){
+                    textView.setText(R.string.error);
+                    clearOnly();
+                }else {
+                    textViewSum.setText(String.format(Locale.US, "%1$.2f", sumNumber));
+                    textView.setText(String.format(Locale.US, "%1$.2f", sumNumber));
+                    enableOperators();
+                    buttonDelete.setEnabled(false);
+                    buttonDecimal.setEnabled(true);
+                }
             }
         });
 
@@ -231,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
         disableOperators();
         textViewOperator.setText(b.getText().toString());
         buttonDecimal.setEnabled(true);
-    }
+    } // onClickOperator End
 
     // OnClick Event Handler for all Number Buttons
     public void onClickNumber(View v){
@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
             disableOperators();
             buttonEquals.setEnabled(true);
         }
-    }
+    } // onClickNumber End
 
     public void clearCalc() {
         textView.setText(R.string.underscore);
