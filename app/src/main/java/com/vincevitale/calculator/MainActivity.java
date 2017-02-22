@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         buttonDelete.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Gets a copy of textView Text as a String
                 String tempString = textView.getText().toString();
                 if(!tempString.equals("_")){
                     // Checks if textView is Empty
