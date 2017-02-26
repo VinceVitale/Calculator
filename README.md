@@ -1,4 +1,4 @@
 # Calculator
 Simple calculator app
 
-![Calculator](/app/src/main/res/drawable/CalculatorPic.png?raw=true "Calculator")
+![calculator](/app/src/main/res/drawable/calculator.png?raw=true "calculator")
