@@ -68,12 +68,13 @@ public class MainActivity extends AppCompatActivity {
                 if (textViewSum.getText().toString().equals("")) {
                     textView.append(".");
                     buttonDecimal.setEnabled(false);
-                    disableAll();
+                    buttonEquals.setEnabled(false);
+                    disableOperators();
                 }else{
                     clearCalc();
                     textView.setText(".");
                     buttonDecimal.setEnabled(false);
-                    disableAll();
+                    disableOperators();
                 }
             }
         });
@@ -94,13 +95,15 @@ public class MainActivity extends AppCompatActivity {
                         textView.setText(tempString.substring(0, tempString.length() - 1));
                         // Disables Operator Buttons if textView is Empty
                         if (textView.getText().toString().length() <= 0) {
-                            disableAll();
+                            disableOperators();
+                            buttonEquals.setEnabled(false);
                         } else {
                             // Disables Operator Buttons if Last Character of textView is a Decimal
                             tempString = textView.getText().toString();
                             tempString = tempString.substring((tempString.length() - 1), tempString.length());
                             if (tempString.equals(".")) {
-                                disableAll();
+                                disableOperators();
+                                buttonEquals.setEnabled(false);
                                 buttonDecimal.setEnabled(false);
                             } else if (textViewOperator.getText().toString().equals("")) {
                                 enableOperators();
@@ -296,15 +299,8 @@ public class MainActivity extends AppCompatActivity {
 
         buttonDelete.setEnabled(true);
         buttonDecimal.setEnabled(true);
-        disableAll();
-    }
-
-    public void disableAll() {
-        buttonAdd.setEnabled(false);
-        buttonSubtract.setEnabled(false);
-        buttonMultiply.setEnabled(false);
-        buttonDivide.setEnabled(false);
         buttonEquals.setEnabled(false);
+        disableOperators();
     }
 
     public void enableOperators() {
@@ -323,10 +319,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clearOnly() {
-        buttonAdd.setEnabled(false);
-        buttonSubtract.setEnabled(false);
-        buttonMultiply.setEnabled(false);
-        buttonDivide.setEnabled(false);
+        disableOperators();
 
         buttonDecimal.setEnabled(false);
         buttonDelete.setEnabled(false);
