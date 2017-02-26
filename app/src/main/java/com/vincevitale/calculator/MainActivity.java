@@ -23,10 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonMultiply;
     private Button buttonDivide;
 
-    // Buttons (Decimal, Back, Clear, Equal)
+    // Buttons (Decimal, Back, Equal)
     private Button buttonDecimal;
     private Button buttonDelete;
-    private Button buttonClear;
     private Button buttonEquals;
 
     @Override
@@ -47,11 +46,13 @@ public class MainActivity extends AppCompatActivity {
         buttonMultiply = (Button) findViewById(R.id.buttonMultiply);
         buttonDivide = (Button) findViewById(R.id.buttonDivide);
 
-        // Strings for the rest of the Buttons (Decimal, Back, Clear, Equal)
+        // Strings for the rest of the Buttons (Decimal, Back, Equal)
         buttonDecimal = (Button) findViewById(R.id.buttonDecimal);
         buttonDelete = (Button) findViewById(R.id.buttonDelete);
-        buttonClear = (Button) findViewById(R.id.buttonClear);
         buttonEquals = (Button) findViewById(R.id.buttonEquals);
+
+        // String for Clear Button
+        Button buttonClear = (Button) findViewById(R.id.buttonClear);
 
         // Clears Calculator Variables
         clearCalc();
@@ -140,21 +141,27 @@ public class MainActivity extends AppCompatActivity {
                 double secondNumber = Double.parseDouble(textViewNumberTwo.getText().toString());
                 double sumNumber;
 
-                if(operatorPicked.equals("+")){
-                    sumNumber = firstNumber + secondNumber;
-                }else if(operatorPicked.equals("-")){
-                    sumNumber = firstNumber - secondNumber;
-                }else if(operatorPicked.equals("*")){
-                    sumNumber = firstNumber * secondNumber;
-                }else if(operatorPicked.equals("/")){
-                    // Prevents Dividing by Zero
-                    if(secondNumber == 0){
+                switch (operatorPicked){
+                    case ("+"):
+                        sumNumber = firstNumber + secondNumber;
+                        break;
+                    case ("-"):
+                        sumNumber = firstNumber - secondNumber;
+                        break;
+                    case ("*"):
+                        sumNumber = firstNumber * secondNumber;
+                        break;
+                    case ("/"):
+                        // Prevents Dividing by Zero
+                        if(secondNumber == 0){
+                            sumNumber = 0;
+                        }else {
+                            sumNumber = firstNumber / secondNumber;
+                        }
+                        break;
+                    default:
                         sumNumber = 0;
-                    }else {
-                        sumNumber = firstNumber / secondNumber;
-                    }
-                }else {
-                    sumNumber = 0;
+                        break;
                 }
 
                 // Check for Dividing by Zero
@@ -170,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
     } // onCreate End
 
     // OnClick Event Handler for all Operators
@@ -193,21 +199,27 @@ public class MainActivity extends AppCompatActivity {
             double secondNumber = Double.parseDouble(textView.getText().toString());
             double sumNumber;
 
-            if(operatorPicked.equals("+")){
-                sumNumber = firstNumber + secondNumber;
-            }else if(operatorPicked.equals("-")){
-                sumNumber = firstNumber - secondNumber;
-            }else if(operatorPicked.equals("*")){
-                sumNumber = firstNumber * secondNumber;
-            }else if(operatorPicked.equals("/")){
-                // Prevents Dividing by Zero
-                if(secondNumber == 0){
+            switch (operatorPicked){
+                case ("+"):
+                    sumNumber = firstNumber + secondNumber;
+                    break;
+                case ("-"):
+                    sumNumber = firstNumber - secondNumber;
+                    break;
+                case ("*"):
+                    sumNumber = firstNumber * secondNumber;
+                    break;
+                case ("/"):
+                    // Prevents Dividing by Zero
+                    if(secondNumber == 0){
+                        sumNumber = 0;
+                    }else {
+                        sumNumber = firstNumber / secondNumber;
+                    }
+                    break;
+                default:
                     sumNumber = 0;
-                }else {
-                    sumNumber = firstNumber / secondNumber;
-                }
-            }else {
-                sumNumber = 0;
+                    break;
             }
 
             // Check for Dividing by Zero
