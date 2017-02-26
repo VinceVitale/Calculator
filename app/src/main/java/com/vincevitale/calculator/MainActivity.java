@@ -232,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
         disableOperators();
         textViewOperator.setText(b.getText().toString());
         buttonDecimal.setEnabled(true);
+        buttonEquals.setEnabled(false);
     } // onClickOperator End
 
     // OnClick Event Handler for all Number Buttons
